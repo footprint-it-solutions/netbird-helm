@@ -39,7 +39,7 @@ spec:
             {{- toYaml .Values.management.securityContext | nindent 12 }}
           image: "{{ .Values.management.image.repository }}:{{ .Values.management.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.management.image.pullPolicy }}
-          {{- if hasKey .Values.management.podCommand "args" }}
+          {{- if and (hasKey .Values.management.podCommand "args") .Values.management.podCommand.args }}
           args:
             {{- range .Values.management.podCommand.args }}
             - {{ . }}
